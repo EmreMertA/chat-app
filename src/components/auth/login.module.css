@@ -1,0 +1,10 @@
+.container {
+  background-size: cover;
+  background-color: cadetblue;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.formHeader {
+  font-size: 52px;
+}
