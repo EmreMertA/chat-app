@@ -1,15 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, Grid, Message, Segment } from "semantic-ui-react";
 import styles from "./signUp.module.css";
 import { useForm } from "react-hook-form";
+import { useFirebase } from "react-redux-firebase";
 
 const SignUp = () => {
-  const { register, formState: { errors }, handleSubmit, setValue } = useForm();
+  const firebase = useFirebase();
 
-  const onSubmit = (data, e) => {
-    console.log(data);
+  const [fbErrors, setFbErrors] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+  } = useForm();
+
+  const onSubmit = ({ username, email, password }, e) => {
+    setSubmitting(true);
+    setFbErrors([]);
+
+    const [first, last] = username.split("");
+
+    firebase
+      .createUser(
+        { email, password },
+        {
+          name: username,
+          avatar: `https://ui-avatars.com/api/?name=${first}+${last}&background=random&color=fff`,
+        }
+      )
+      .then((user) => {
+        console.log(user);
+      })
+      .catch((error) => {
+        setFbErrors([{ message: error.message }]);
+      })
+      .finally(() => setSubmitting(false));
   };
+
+  const displayErrors = () => {
+    fbErrors.map((error, index) => <p key={index}>{error.message}</p>);
+  };
+
   return (
     <Grid
       textAlign="center"
@@ -36,7 +71,6 @@ const SignUp = () => {
               }}
               placeholder="Username"
               error={errors.username ? true : false}
-
             />
             <Form.Input
               fluid
@@ -50,7 +84,6 @@ const SignUp = () => {
               type="email"
               placeholder="E-mail address"
               error={errors.email ? true : false}
-
             />
             <Form.Input
               fluid
@@ -64,14 +97,21 @@ const SignUp = () => {
               placeholder="Password"
               type="password"
               error={errors.password ? true : false}
-
             />
 
-            <Button color="violet" fluid size="large">
+            <Button color="violet" fluid size="large" disabled={submitting}>
               Sign Up
             </Button>
           </Segment>
         </Form>
+        {}
+        {fbErrors.length > 0 &&
+          fbErrors.map((error, index) => (
+            <Message key={index} error>
+              {error.message}
+            </Message>
+          ))}
+
         <Message>
           Have an account? <Link to="/login"> Log in</Link>
         </Message>

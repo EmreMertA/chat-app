@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Form, Grid, Message, Segment } from "semantic-ui-react";
 import styles from "./login.module.css";
 import { useForm } from "react-hook-form";
+import { useFirebase } from "react-redux-firebase";
 
 const Login = () => {
+  const firebase = useFirebase();
+
+  const [fbErrors, setFbErrors] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
+
   const {
     register,
     formState: { errors },
@@ -12,8 +18,22 @@ const Login = () => {
     setValue,
   } = useForm();
 
-  const onSubmit = (data, e) => {
-    console.log(data);
+  const onSubmit = ({ email, password }, e) => {
+    setSubmitting(true);
+    setFbErrors([]);
+
+    firebase
+      .login({
+        email,
+        password,
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        setFbErrors([{ message: error.message }]);
+      })
+      .finally(() => setSubmitting(false));
   };
   return (
     <Grid
@@ -56,11 +76,17 @@ const Login = () => {
               error={errors.password ? true : false}
             />
 
-            <Button color="violet" fluid size="large">
-              Login
+            <Button color="violet" fluid size="large" disabled={submitting}>
+              Log In
             </Button>
           </Segment>
         </Form>
+        {fbErrors.length > 0 &&
+          fbErrors.map((error, index) => (
+            <Message key={index} error>
+              {error.message}
+            </Message>
+          ))}
         <Message>
           New to us? <Link to="/signup">Sign Up</Link>
         </Message>
