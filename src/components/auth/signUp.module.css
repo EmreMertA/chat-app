@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap');
 .container {
-    background-size: cover;
-    background-color: cadetblue;
-    background-repeat: no-repeat;
-    height: 100vh;
-  }
-  
-  .formHeader {
-    font-size: 52px;
-  }
-  
+  background-size: cover;
+  background-color: #1e1d2f;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.formHeader {
+  font-size: 52px;
+  color: whitesmoke;
+  opacity: .7;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
