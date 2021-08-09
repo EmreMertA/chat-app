@@ -1,10 +1,18 @@
 import React from "react";
+import { Grid, GridColumn } from "semantic-ui-react";
+import SidePanel from "./components/SidePanel/SidePanel";
 
 const App = () => {
   return (
-    <div>
-      <h1>App </h1>
-    </div>
+    <Grid columns="2">
+      <Grid.Column width="3" style={{ background: "#000", height: "110vh" }}>
+        {/* sidebar */}
+        <SidePanel />
+      </Grid.Column>
+      <Grid.Column width="13" style={{ background: "#eee" }}>
+        {/* chatpanel */}
+      </Grid.Column>
+    </Grid>
   );
 };
 

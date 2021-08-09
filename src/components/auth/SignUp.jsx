@@ -41,9 +41,7 @@ const SignUp = () => {
       .finally(() => setSubmitting(false));
   };
 
-  const displayErrors = () => {
-    fbErrors.map((error, index) => <p key={index}>{error.message}</p>);
-  };
+ 
 
   return (
     <Grid

@@ -18,7 +18,7 @@ const Login = () => {
     setValue,
   } = useForm();
 
-  const onSubmit = ({ email, password }, e) => {
+  const onSubmit = ({ email, password }) => {
     setSubmitting(true);
     setFbErrors([]);
 
