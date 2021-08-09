@@ -5,7 +5,7 @@ import SidePanel from "./components/SidePanel/SidePanel";
 const App = () => {
   return (
     <Grid columns="2">
-      <Grid.Column width="3" style={{ background: "#000", height: "110vh" }}>
+      <Grid.Column width="4" style={{ background: "#000", height: "110vh" }}>
         {/* sidebar */}
         <SidePanel />
       </Grid.Column>
