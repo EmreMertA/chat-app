@@ -22,7 +22,7 @@ const SidePanel = () => {
         inverted
         secondary
         style={{
-          width: "324px",
+          width: "100%",
           fontSize: "1rem",
           height: "100%",
           background: color,
@@ -32,6 +32,7 @@ const SidePanel = () => {
           {/* UserPanel */}
           <TwitterPicker
             color={color}
+            width="220px"
             onChangeComplete={(color) => setColor(color.hex)}
           />
           <UserPanel />

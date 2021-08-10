@@ -34,21 +34,21 @@ const CreateChannelForm = ({ open, onClose, onOpen }) => {
         <Form onSubmit={onSubmit}>
           <Form.Input
             fluid
-            icon="mail"
+            icon="hashtag"
             iconPosition="left"
             name="name"
             // error={errors.name ? true : false}
-            placeholder="#General"
+            placeholder="name"
             onChange={(e) => setName(e.target.value)}
           />
           <Form.Input
             fluid
-            icon="lock"
+            icon="hashtag"
             iconPosition="left"
             name="description"
             onChange={(e) => setDescription(e.target.value)}
             // error={errors.description ? true : false}
-            placeholder="#description"
+            placeholder="description"
           />
         </Form>
       </Modal.Content>
