@@ -164,24 +164,23 @@ const ChatPanel = ({ currentChannel }) => {
           position: "fixed",
           bottom: 0,
           width: "calc(100% - 260px)",
+          diplay: "flex",
         }}
       >
-        <Form onSubmit={handleSubmit}>
+        <Button icon onClick={() => fileInputRef.current.click()}>
+          <Icon name="add" />
+          <input
+            type="file"
+            name="file"
+            ref={fileInputRef}
+            onChange={uploadMedia}
+          />
+        </Button>
+        <Form onSubmit={handleSubmit} style={{ flexdirection: "column" }}>
           <Input
             fluid
             value={content}
             name="message"
-            label={
-              <Button icon onClick={() => fileInputRef.current.click()}>
-                <Icon name="add" />
-                <input
-                  type="file"
-                  name="file"
-                  ref={fileInputRef}
-                  onChange={uploadMedia}
-                />
-              </Button>
-            }
             labelPosition="left"
             placeholder={`Message #${currentChannel.name}`}
             onChange={(event) => setContent(event.target.value)}
